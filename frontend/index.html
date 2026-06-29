@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Node Monitor</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    
+    <div class="container">
+        <header>
+            <h1>📊 Smart Node Monitor</h1>
+            <div class="status">
+                <span class="dot connected"></span>
+                Connesso
+            </div>
+        </header>
+        
+        <main>
+            <!-- Temperatura attuale -->
+            <div class="card temperature-card">
+                <div class="label">Temperatura Attuale</div>
+                <div class="value" id="currentTemp">--°C</div>
+                <div class="timestamp" id="lastUpdate">Ultimo aggiornamento: --</div>
+            </div>
+            
+            <!-- Grafico -->
+            <div class="card chart-card">
+                <h3>Andamento Temperatura</h3>
+                <canvas id="temperatureChart"></canvas>
+            </div>
+            
+            <!-- Controlli -->
+            <div class="card controls-card">
+                <h3>Controllo Dispositivo</h3>
+                <button id="ledToggle" class="btn btn-led">
+                    💡 Accendi LED
+                </button>
+                <button id="buzzerToggle" class="btn btn-buzzer">
+                    🔊 Attiva Buzzer
+                </button>
+            </div>
+            
+            <!-- Tabella dati recenti -->
+            <div class="card data-table">
+                <h3>Dati Recenti</h3>
+                <table id="recentData">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Temperatura</th>
+                            <th>Umidità</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataBody">
+                        <!-- Popolato da JS -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    
+    <script src="js/chart-config.js"></script>
+    <script src="js/app.js"></script>
+    <script type="module">
+import { testConnection } from './js/supabase-client.js'
+// Test connessione all'avvio
+testConnection()
+</script>
+</body>
+</html>
