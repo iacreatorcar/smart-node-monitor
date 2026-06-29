@@ -7,7 +7,13 @@ router = APIRouter()
 
 @router.post("/sensor-data")
 def post_sensor_data(data: SensorDataCreate):
-    return SensorCRUD.create(data)
+    try:
+        result = SensorCRUD.create(data)
+        return result
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise
 
 
 @router.get("/sensor-data/latest")
