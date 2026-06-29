@@ -511,6 +511,68 @@
         </ul>
     </section>
 
+    <!-- SCALABILITÀ -->
+    <section>
+        <div class="section-label">Scalabilità</div>
+        <h2>Come scala su AWS o Azure</h2>
+        <p>L'architettura è già containerizzabile — ogni layer scala indipendentemente. Il backend FastAPI gira in qualsiasi container senza modifiche al codice.</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px">
+
+            <!-- AWS -->
+            <div style="background:#1e293b;border:1px solid #334155;border-radius:12px;padding:28px">
+                <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#f59e0b;margin-bottom:16px">☁️ AWS</div>
+                <table style="width:100%;border-collapse:collapse;font-size:0.85rem">
+                    <tr style="border-bottom:1px solid #334155">
+                        <td style="padding:10px 0;color:#64748b;width:40%">Backend</td>
+                        <td style="padding:10px 0;color:#cbd5e1;font-weight:600">ECS Fargate</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #334155">
+                        <td style="padding:10px 0;color:#64748b">Frontend</td>
+                        <td style="padding:10px 0;color:#cbd5e1;font-weight:600">S3 + CloudFront</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #334155">
+                        <td style="padding:10px 0;color:#64748b">Database</td>
+                        <td style="padding:10px 0;color:#cbd5e1;font-weight:600">RDS PostgreSQL</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px 0;color:#64748b">Realtime</td>
+                        <td style="padding:10px 0;color:#cbd5e1;font-weight:600">AWS IoT Core</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Azure -->
+            <div style="background:#1e293b;border:1px solid #334155;border-radius:12px;padding:28px">
+                <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#3b82f6;margin-bottom:16px">☁️ Azure</div>
+                <table style="width:100%;border-collapse:collapse;font-size:0.85rem">
+                    <tr style="border-bottom:1px solid #334155">
+                        <td style="padding:10px 0;color:#64748b;width:40%">Backend</td>
+                        <td style="padding:10px 0;color:#cbd5e1;font-weight:600">Container Apps</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #334155">
+                        <td style="padding:10px 0;color:#64748b">Frontend</td>
+                        <td style="padding:10px 0;color:#cbd5e1;font-weight:600">Static Web Apps</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #334155">
+                        <td style="padding:10px 0;color:#64748b">Database</td>
+                        <td style="padding:10px 0;color:#cbd5e1;font-weight:600">Azure DB PostgreSQL</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px 0;color:#64748b">Realtime</td>
+                        <td style="padding:10px 0;color:#cbd5e1;font-weight:600">Azure SignalR Service</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div style="background:#1e293b;border-left:4px solid #22c55e;border-radius:0 12px 12px 0;padding:24px 28px;margin-top:24px">
+            <p style="color:#cbd5e1;margin:0;font-size:0.9rem">
+                <strong style="color:#4ade80">Punto chiave:</strong> separazione netta backend / frontend / database — ogni layer scala indipendentemente. Su AWS o Azure il codice non cambia: si aggiorna solo l'infrastruttura di deploy. Il Realtime Supabase si sostituisce con AWS IoT Core o Azure SignalR per scenari enterprise con milioni di device connessi simultaneamente.
+            </p>
+        </div>
+    </section>
+
     <!-- AUTORE -->
     <section>
         <div class="section-label">Autore</div>
