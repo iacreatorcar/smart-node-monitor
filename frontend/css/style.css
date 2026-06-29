@@ -204,6 +204,18 @@ main {
     box-shadow: 0 0 16px #7c3aed80;
 }
 
+.btn-tv {
+    background: #1a2e1a;
+    color: #4ade80;
+    border: 1px solid #22c55e;
+    margin-top: 8px;
+}
+
+.btn-tv:hover {
+    background: #22c55e;
+    color: #0f172a;
+}
+
 /* Data Table */
 .data-table {
     grid-column: 1 / 3;
