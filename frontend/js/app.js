@@ -19,12 +19,36 @@ class SmartNodeApp {
 
     async init() {
         this.chart = createTemperatureChart('temperatureChart')
+        this.showWakeUp()
         await this.loadLatest()
         await this.loadHistory()
         await this.loadActuatorStates()
+        this.hideWakeUp()
         this.setupRealtime()
         this.setupControls()
         setInterval(() => this.loadLatest(), 10000)
+    }
+
+    showWakeUp() {
+        if (window.location.hostname === 'localhost') return
+        const el = document.createElement('div')
+        el.id = 'wakeup-banner'
+        el.innerHTML = `
+            <div style="
+                position:fixed;top:0;left:0;right:0;z-index:9999;
+                background:#1e293b;border-bottom:1px solid #334155;
+                padding:12px 24px;display:flex;align-items:center;gap:12px;
+                font-family:'Segoe UI',sans-serif;font-size:0.85rem;color:#94a3b8;
+            ">
+                <div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;
+                    box-shadow:0 0 8px #f59e0b;animation:pulse 1s infinite;flex-shrink:0"></div>
+                <span>Avvio server in corso — prima connessione può richiedere fino a 60 secondi...</span>
+            </div>`
+        document.body.prepend(el)
+    }
+
+    hideWakeUp() {
+        document.getElementById('wakeup-banner')?.remove()
     }
 
     async loadLatest() {
