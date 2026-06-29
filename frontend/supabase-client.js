@@ -1,6 +1,5 @@
-// Le tue chiavi verranno da .env in produzione
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || 'https://jmkbpegdfuqxyyfpcoto.supabase.co'
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impta2JwZWdkZnVxeHl5ZnBjb3RvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI3MzczODAsImV4cCI6MjA5ODMxMzM4MH0.yHyQfukFJ3Y5BWwhVjKPBxK5jANoIFJ6nsDEPXqHR_o'
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
