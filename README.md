@@ -22,7 +22,8 @@ L'operatore può monitorare la temperatura da qualsiasi dispositivo, ricevere al
 | Database | Supabase (PostgreSQL + Realtime) |
 | Frontend | HTML + CSS + JavaScript |
 | Simulatore | Python |
-| Deploy | Vercel (frontend) + Railway (backend) |
+| Deploy Frontend | Netlify — [smart-node-monitor.netlify.app](https://smart-node-monitor.netlify.app) |
+| Deploy Backend | Render.com — [smart-node-monitor.onrender.com](https://smart-node-monitor.onrender.com) |
 
 ---
 
@@ -99,7 +100,8 @@ smart-node-monitor/
 ├── simulator/
 │   └── device_simulator.py
 └── docs/
-    └── guida.html           # Guida completa
+    ├── guida.html           # Guida completa
+    └── presentazione.html   # Presentazione progetto
 ```
 
 ---
@@ -110,7 +112,8 @@ smart-node-monitor/
 - [x] Dashboard con grafico realtime
 - [x] Simulatore IoT
 - [x] Aggiornamenti Realtime WebSocket
-- [ ] Deploy Vercel + Railway
+- [x] Monitor TV fullscreen
+- [x] Deploy Netlify (frontend) + Render (backend)
 - [ ] Autenticazione utenti
 - [ ] Alert email su soglia critica
 - [ ] Supporto multi-dispositivo
