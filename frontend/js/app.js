@@ -1,4 +1,4 @@
-import { subscribeToSensorData } from './supabase-client.js'
+import { subscribeToSensorData, subscribeToActuators } from './supabase-client.js'
 import { createTemperatureChart, updateChart } from './chart-config.js'
 import { API_BASE } from './config.js'
 
@@ -92,6 +92,11 @@ class SmartNodeApp {
             this.updateTemperatureUI(newData.temperature)
             this.updateEl.textContent = `Ultimo aggiornamento: ${new Date(newData.timestamp).toLocaleTimeString('it-IT')}`
             this.loadHistory()
+        })
+
+        subscribeToActuators((data) => {
+            if (data.actuator_type === 'led') this.setLedUI(data.state)
+            else if (data.actuator_type === 'buzzer') this.setBuzzerUI(data.state)
         })
     }
 

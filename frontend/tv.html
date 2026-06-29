@@ -320,7 +320,7 @@
 </main>
 
 <script type="module">
-import { subscribeToSensorData } from './js/supabase-client.js'
+import { subscribeToSensorData, subscribeToActuators } from './js/supabase-client.js'
 import { API_BASE } from './js/config.js'
 
 const API = `${API_BASE}/api`
@@ -430,11 +430,20 @@ setInterval(loadLatest, 5000)
 setInterval(loadHistory, 15000)
 setInterval(loadActuators, 5000)
 
-// Realtime
+// Realtime sensori
 subscribeToSensorData((d) => {
     updateTempUI(d.temperature)
     if (d.humidity) document.getElementById('humValue').textContent = `${d.humidity}%`
     loadHistory()
+})
+
+// Realtime attuatori
+subscribeToActuators((d) => {
+    const card = document.getElementById(`${d.actuator_type}Indicator`)
+    const stateEl = document.getElementById(`${d.actuator_type}State`)
+    if (!card) return
+    card.classList.toggle('on', d.state)
+    stateEl.textContent = d.state ? 'ON' : 'OFF'
 })
 </script>
 </body>

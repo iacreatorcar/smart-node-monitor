@@ -15,3 +15,14 @@ export function subscribeToSensorData(callback) {
         }, (payload) => callback(payload.new))
         .subscribe()
 }
+
+export function subscribeToActuators(callback) {
+    supabase
+        .channel('actuator_states')
+        .on('postgres_changes', {
+            event: '*',
+            schema: 'public',
+            table: 'actuator_states',
+        }, (payload) => callback(payload.new))
+        .subscribe()
+}
