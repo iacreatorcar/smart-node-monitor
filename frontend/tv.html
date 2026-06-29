@@ -164,32 +164,61 @@
             grid-row: 1;
         }
 
-        .actuator-row {
-            display: flex;
-            align-items: center;
+        .actuator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 16px;
-            margin: 12px 0;
-            font-size: 1.4rem;
+            width: 100%;
+            margin-top: 8px;
         }
 
-        .actuator-indicator {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
+        .actuator-card {
             background: #1e293b;
             border: 2px solid #334155;
+            border-radius: 12px;
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
             transition: all 0.3s;
         }
 
-        .actuator-indicator.on {
-            background: #22c55e;
+        .actuator-card.on {
             border-color: #22c55e;
-            box-shadow: 0 0 12px #22c55e;
+            background: #0d2818;
+            box-shadow: 0 0 20px #22c55e30;
+        }
+
+        .actuator-icon {
+            font-size: 2.5rem;
+            line-height: 1;
         }
 
         .actuator-label {
-            color: #94a3b8;
-            font-size: 1.1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #64748b;
+        }
+
+        .actuator-card.on .actuator-label {
+            color: #22c55e;
+        }
+
+        .actuator-state {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 9999px;
+            background: #334155;
+            color: #64748b;
+        }
+
+        .actuator-card.on .actuator-state {
+            background: #22c55e;
+            color: #0f172a;
         }
 
         /* Chart */
@@ -269,13 +298,17 @@
     <!-- Stato dispositivo -->
     <div class="panel status-panel">
         <div class="panel-label">Stato Dispositivo</div>
-        <div class="actuator-row">
-            <div class="actuator-indicator" id="ledIndicator"></div>
-            <span class="actuator-label">💡 LED</span>
-        </div>
-        <div class="actuator-row">
-            <div class="actuator-indicator" id="buzzerIndicator"></div>
-            <span class="actuator-label">🔊 Buzzer</span>
+        <div class="actuator-grid">
+            <div class="actuator-card" id="ledIndicator">
+                <div class="actuator-icon">💡</div>
+                <div class="actuator-label">LED</div>
+                <div class="actuator-state" id="ledState">OFF</div>
+            </div>
+            <div class="actuator-card" id="buzzerIndicator">
+                <div class="actuator-icon">🔊</div>
+                <div class="actuator-label">Buzzer</div>
+                <div class="actuator-state" id="buzzerState">OFF</div>
+            </div>
         </div>
     </div>
 
@@ -381,8 +414,10 @@ async function loadActuators() {
         try {
             const res = await fetch(`${API}/actuator/${type}/state`)
             const data = await res.json()
-            const el = document.getElementById(`${type}Indicator`)
-            el.classList.toggle('on', data.state)
+            const card = document.getElementById(`${type}Indicator`)
+            const stateEl = document.getElementById(`${type}State`)
+            card.classList.toggle('on', data.state)
+            stateEl.textContent = data.state ? 'ON' : 'OFF'
         } catch(e) {}
     }
 }
