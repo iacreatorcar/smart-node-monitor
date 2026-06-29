@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Node Monitor — Presentazione</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.7;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f2a1a 100%);
+            padding: 80px 40px;
+            text-align: center;
+            border-bottom: 1px solid #22c55e30;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: #14532d;
+            color: #4ade80;
+            border: 1px solid #22c55e;
+            padding: 6px 18px;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #f1f5f9;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 span { color: #22c55e; }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #94a3b8;
+            max-width: 640px;
+            margin: 0 auto 32px;
+        }
+
+        .hero-meta {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .hero-meta-item {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .hero-meta-item strong { color: #cbd5e1; }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        section { margin-bottom: 64px; }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #22c55e;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 12px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #f1f5f9;
+            margin-bottom: 24px;
+            letter-spacing: -0.01em;
+        }
+
+        p { color: #94a3b8; margin-bottom: 16px; }
+
+        /* What it does */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 32px;
+        }
+
+        .feature-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 28px;
+            transition: border-color 0.2s;
+        }
+
+        .feature-card:hover { border-color: #22c55e40; }
+
+        .feature-icon { font-size: 2rem; margin-bottom: 12px; }
+
+        .feature-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin: 0;
+        }
+
+        /* Architecture */
+        .arch-diagram {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 32px;
+            text-align: center;
+        }
+
+        .arch-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin: 16px 0;
+        }
+
+        .arch-box {
+            background: #0f172a;
+            border: 2px solid #334155;
+            border-radius: 10px;
+            padding: 14px 22px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #cbd5e1;
+            min-width: 140px;
+        }
+
+        .arch-box.green { border-color: #22c55e; color: #4ade80; }
+        .arch-box.blue { border-color: #3b82f6; color: #93c5fd; }
+        .arch-box.purple { border-color: #8b5cf6; color: #c4b5fd; }
+        .arch-box.orange { border-color: #f59e0b; color: #fcd34d; }
+
+        .arch-arrow {
+            color: #475569;
+            font-size: 1.4rem;
+        }
+
+        .arch-label {
+            font-size: 0.7rem;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 6px;
+        }
+
+        /* Stack */
+        .stack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .stack-item {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .stack-layer {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #475569;
+        }
+
+        .stack-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #f1f5f9;
+        }
+
+        .stack-desc {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .stack-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-top: 4px;
+            width: fit-content;
+        }
+
+        .badge-green { background: #14532d; color: #4ade80; }
+        .badge-blue { background: #1e3a5f; color: #93c5fd; }
+        .badge-purple { background: #3b1f5e; color: #c4b5fd; }
+        .badge-orange { background: #451a03; color: #fcd34d; }
+
+        /* Inspiration */
+        .inspiration-box {
+            background: #1e293b;
+            border-left: 4px solid #22c55e;
+            border-radius: 0 12px 12px 0;
+            padding: 28px 32px;
+            margin-top: 24px;
+        }
+
+        .inspiration-box p { color: #cbd5e1; margin: 0 0 12px; }
+        .inspiration-box p:last-child { margin: 0; color: #94a3b8; font-size: 0.9rem; }
+
+        /* Use cases */
+        .usecase-list {
+            list-style: none;
+            margin-top: 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .usecase-list li {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 14px 18px;
+            font-size: 0.9rem;
+            color: #94a3b8;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .usecase-list li::before {
+            content: '→';
+            color: #22c55e;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* Author */
+        .author-card {
+            background: linear-gradient(135deg, #1e293b, #0f2a1a);
+            border: 1px solid #22c55e30;
+            border-radius: 16px;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .author-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #22c55e, #15803d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .author-info h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #f1f5f9;
+            margin-bottom: 4px;
+        }
+
+        .author-info .role {
+            font-size: 0.9rem;
+            color: #22c55e;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .author-info p {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid #1e293b;
+            color: #334155;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.2rem; }
+            .usecase-list { grid-template-columns: 1fr; }
+            .author-card { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <div class="hero-badge">📊 Progetto Demo IoT</div>
+    <h1>Smart Node <span>Monitor</span></h1>
+    <p>Sistema di monitoraggio IoT real-time con controllo remoto degli attuatori, dashboard live e visualizzazione TV fullscreen.</p>
+    <div class="hero-meta">
+        <div class="hero-meta-item"><strong>Versione</strong> 1.0.0</div>
+        <div class="hero-meta-item"><strong>Autore</strong> Carmine Dalise</div>
+        <div class="hero-meta-item"><strong>Anno</strong> 2025</div>
+        <div class="hero-meta-item"><strong>Stack</strong> FastAPI · Supabase · JS</div>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- COSA FA -->
+    <section>
+        <div class="section-label">Overview</div>
+        <h2>Cosa fa il progetto</h2>
+        <p>Smart Node Monitor simula un nodo IoT che raccoglie dati ambientali (temperatura e umidità), li trasmette a un backend cloud e li visualizza in tempo reale su una dashboard web. L'operatore può controllare remotamente attuatori fisici — LED e buzzer — direttamente dal browser.</p>
+        <p>Il progetto dimostra un'architettura full-stack completa: dal dispositivo simulato (Python) fino all'interfaccia utente, passando per API REST, database cloud e WebSocket realtime.</p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📡</div>
+                <h3>Acquisizione Dati Real-time</h3>
+                <p>Simulatore Python invia dati ogni 5 secondi. Dashboard aggiorna automaticamente via Supabase Realtime (WebSocket).</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌡️</div>
+                <h3>Monitoraggio Temperatura</h3>
+                <p>Soglie visive: verde normale, arancio sopra 25°C, rosso critico sopra 30°C con alert banner.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎛️</div>
+                <h3>Controllo Attuatori</h3>
+                <p>Toggle LED e Buzzer dal browser. Stato persistito su DB, sincronizzato su tutti i client aperti.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📺</div>
+                <h3>Monitor TV Fullscreen</h3>
+                <p>Vista ottimizzata per display esterni: temperatura gigante, grafico, stato attuatori. Aggiornamento istantaneo.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <h3>Storico Grafico</h3>
+                <p>Grafico Chart.js con ultime 50 letture. Colore dinamico in base alla temperatura massima rilevata.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">☁️</div>
+                <h3>Deploy Cloud</h3>
+                <p>Backend su Render.com, frontend statico deployabile su Netlify. Database su Supabase (PostgreSQL).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ARCHITETTURA -->
+    <section>
+        <div class="section-label">Architettura</div>
+        <h2>Come è strutturato</h2>
+        <p>Architettura a tre livelli: device layer, backend API, frontend. Supabase funge da database condiviso e da broker realtime tra backend e client.</p>
+
+        <div class="arch-diagram">
+            <div class="arch-row">
+                <div>
+                    <div class="arch-box orange">🤖 Simulatore Python</div>
+                    <div class="arch-label">Device Layer</div>
+                </div>
+            </div>
+            <div class="arch-row">
+                <div class="arch-arrow">↓ POST /api/sensor-data</div>
+            </div>
+            <div class="arch-row">
+                <div>
+                    <div class="arch-box green">⚡ FastAPI Backend</div>
+                    <div class="arch-label">API Layer · Render.com</div>
+                </div>
+            </div>
+            <div class="arch-row">
+                <div class="arch-arrow">↓ Supabase SDK</div>
+            </div>
+            <div class="arch-row">
+                <div>
+                    <div class="arch-box purple">🗄️ Supabase PostgreSQL</div>
+                    <div class="arch-label">Database + Realtime WebSocket</div>
+                </div>
+            </div>
+            <div class="arch-row">
+                <div class="arch-arrow">↓ WebSocket / REST API</div>
+            </div>
+            <div class="arch-row" style="gap: 24px">
+                <div>
+                    <div class="arch-box blue">🖥️ Dashboard</div>
+                    <div class="arch-label">index.html</div>
+                </div>
+                <div>
+                    <div class="arch-box blue">📺 Monitor TV</div>
+                    <div class="arch-label">tv.html</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STACK -->
+    <section>
+        <div class="section-label">Tech Stack</div>
+        <h2>Tecnologie utilizzate</h2>
+
+        <div class="stack-grid">
+            <div class="stack-item">
+                <div class="stack-layer">Backend</div>
+                <div class="stack-name">FastAPI</div>
+                <div class="stack-desc">Framework Python async per API REST. Validazione automatica con Pydantic.</div>
+                <div class="stack-badge badge-green">Python 3.11</div>
+            </div>
+            <div class="stack-item">
+                <div class="stack-layer">Database</div>
+                <div class="stack-name">Supabase</div>
+                <div class="stack-desc">PostgreSQL managed con Realtime WebSocket integrato e Row Level Security.</div>
+                <div class="stack-badge badge-purple">PostgreSQL 15</div>
+            </div>
+            <div class="stack-item">
+                <div class="stack-layer">Frontend</div>
+                <div class="stack-name">Vanilla JS</div>
+                <div class="stack-desc">ES Modules nativi, zero bundler. Chart.js via CDN per grafici interattivi.</div>
+                <div class="stack-badge badge-blue">No Framework</div>
+            </div>
+            <div class="stack-item">
+                <div class="stack-layer">Device Simulator</div>
+                <div class="stack-name">Python Script</div>
+                <div class="stack-desc">Genera temperatura realistica con variazioni casuali. Polling stato attuatori.</div>
+                <div class="stack-badge badge-orange">requests lib</div>
+            </div>
+            <div class="stack-item">
+                <div class="stack-layer">Deploy Backend</div>
+                <div class="stack-name">Render.com</div>
+                <div class="stack-desc">Web service Python con autoscaling. Deploy automatico da GitHub push.</div>
+                <div class="stack-badge badge-green">Free Tier</div>
+            </div>
+            <div class="stack-item">
+                <div class="stack-layer">Realtime</div>
+                <div class="stack-name">Supabase Realtime</div>
+                <div class="stack-desc">Postgres Changes subscription. Push istantaneo a tutti i client connessi su INSERT/UPDATE.</div>
+                <div class="stack-badge badge-purple">WebSocket</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ISPIRAZIONE -->
+    <section>
+        <div class="section-label">Ispirazione e contesto</div>
+        <h2>Su cosa si basa</h2>
+        <p>Il progetto nasce dalla convergenza di due mondi in rapida crescita: l'<strong>Internet of Things</strong> industriale e le moderne architetture cloud-native. È stato costruito come progetto dimostrativo per un colloquio, con l'obiettivo di mostrare competenze full-stack concrete e applicabili in contesti reali.</p>
+
+        <div class="inspiration-box">
+            <p><strong>Pattern di riferimento:</strong> il sistema segue l'architettura tipica dei sistemi SCADA (Supervisory Control and Data Acquisition) in versione moderna e cloud-based. Invece di hardware costoso e reti proprietarie, usa API REST standard e WebSocket su infrastruttura serverless.</p>
+            <p>Casi reali analoghi: sistemi di monitoraggio ambientale in data center, controllo temperatura in celle frigorifere industriali, supervisione remota di impianti fotovoltaici, monitoring di server farm.</p>
+        </div>
+    </section>
+
+    <!-- USE CASES -->
+    <section>
+        <div class="section-label">Applicazioni</div>
+        <h2>Casi d'uso reali</h2>
+
+        <ul class="usecase-list">
+            <li>Monitoraggio temperatura in ambienti critici (server room, celle frigo)</li>
+            <li>Dashboard operativa per impianti industriali leggeri</li>
+            <li>Sistema di allerta precoce per variazioni ambientali</li>
+            <li>Controllo remoto attuatori in automazione domestica</li>
+            <li>Visualizzazione dati IoT su display pubblici o sala controllo</li>
+            <li>Prototipo per integrazione con hardware reale (ESP32, Raspberry Pi)</li>
+        </ul>
+    </section>
+
+    <!-- AUTORE -->
+    <section>
+        <div class="section-label">Autore</div>
+        <h2>Chi ha costruito questo</h2>
+        <div class="author-card">
+            <div class="author-avatar">👨‍💻</div>
+            <div class="author-info">
+                <h3>Carmine Dalise</h3>
+                <div class="role">Founder · Full-Stack Developer</div>
+                <p>Progetto sviluppato come dimostrazione di competenze full-stack in ambito IoT: architettura backend, gestione database cloud, sviluppo frontend e deploy su infrastruttura cloud moderna.</p>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    Smart Node Monitor · Carmine Dalise · 2025 · Built with FastAPI, Supabase, Vanilla JS
+</footer>
+
+</body>
+</html>
