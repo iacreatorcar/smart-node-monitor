@@ -8,45 +8,36 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    
     <div class="container">
         <header>
             <h1>📊 Smart Node Monitor</h1>
             <div class="status">
-                <span class="dot connected"></span>
-                Connesso
+                <span class="dot connected" id="statusDot"></span>
+                <span id="statusText">Connesso</span>
             </div>
         </header>
-        
+
         <main>
-            <!-- Temperatura attuale -->
             <div class="card temperature-card">
                 <div class="label">Temperatura Attuale</div>
                 <div class="value" id="currentTemp">--°C</div>
-                <div class="timestamp" id="lastUpdate">Ultimo aggiornamento: --</div>
+                <div class="timestamp" id="lastUpdate">In attesa di dati...</div>
             </div>
-            
-            <!-- Grafico -->
+
             <div class="card chart-card">
                 <h3>Andamento Temperatura</h3>
                 <canvas id="temperatureChart"></canvas>
             </div>
-            
-            <!-- Controlli -->
+
             <div class="card controls-card">
                 <h3>Controllo Dispositivo</h3>
-                <button id="ledToggle" class="btn btn-led">
-                    💡 Accendi LED
-                </button>
-                <button id="buzzerToggle" class="btn btn-buzzer">
-                    🔊 Attiva Buzzer
-                </button>
+                <button id="ledToggle" class="btn btn-led">💡 Accendi LED</button>
+                <button id="buzzerToggle" class="btn btn-buzzer">🔊 Attiva Buzzer</button>
             </div>
-            
-            <!-- Tabella dati recenti -->
+
             <div class="card data-table">
                 <h3>Dati Recenti</h3>
-                <table id="recentData">
+                <table>
                     <thead>
                         <tr>
                             <th>Timestamp</th>
@@ -55,19 +46,13 @@
                         </tr>
                     </thead>
                     <tbody id="dataBody">
-                        <!-- Popolato da JS -->
+                        <tr><td colspan="3" style="text-align:center;color:#64748b;padding:20px">In attesa di dati...</td></tr>
                     </tbody>
                 </table>
             </div>
         </main>
     </div>
-    
-    <script src="js/chart-config.js"></script>
-    <script src="js/app.js"></script>
-    <script type="module">
-import { testConnection } from './js/supabase-client.js'
-// Test connessione all'avvio
-testConnection()
-</script>
+
+    <script type="module" src="js/app.js"></script>
 </body>
 </html>
