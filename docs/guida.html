@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Node Monitor — Guida</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 48px 24px; }
+        h1 { font-size: 2.2rem; font-weight: 800; color: #f1f5f9; margin-bottom: 8px; }
+        .subtitle { color: #64748b; font-size: 1rem; margin-bottom: 48px; }
+        h2 { font-size: 1.2rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.08em; margin: 40px 0 16px; border-bottom: 1px solid #1e293b; padding-bottom: 8px; }
+        h3 { font-size: 1rem; font-weight: 600; color: #cbd5e1; margin: 20px 0 8px; }
+        p { color: #94a3b8; margin-bottom: 12px; }
+        pre { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 16px; overflow-x: auto; margin: 12px 0; }
+        code { font-family: 'Cascadia Code', 'Consolas', monospace; font-size: 0.9rem; color: #22c55e; }
+        pre code { color: #e2e8f0; }
+        .badge { display: inline-block; padding: 2px 10px; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; margin-right: 6px; }
+        .badge-green { background: #14532d; color: #22c55e; }
+        .badge-blue { background: #1e3a5f; color: #60a5fa; }
+        .badge-purple { background: #3b1f5e; color: #c4b5fd; }
+        .badge-orange { background: #431407; color: #fb923c; }
+        .step { display: flex; gap: 16px; margin-bottom: 20px; align-items: flex-start; }
+        .step-num { min-width: 32px; height: 32px; background: #2563eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; color: #fff; }
+        .step-content { flex: 1; }
+        .step-content h3 { margin-top: 4px; }
+        table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+        th { text-align: left; padding: 10px 12px; font-size: 0.8rem; color: #64748b; text-transform: uppercase; border-bottom: 1px solid #334155; }
+        td { padding: 10px 12px; border-bottom: 1px solid #1e293b; color: #94a3b8; font-size: 0.9rem; }
+        td:first-child { color: #e2e8f0; font-family: monospace; }
+        .arch { background: #1e293b; border-radius: 12px; padding: 24px; margin: 16px 0; }
+        .arch pre { background: transparent; border: none; padding: 0; }
+        .roadmap-item { display: flex; gap: 16px; margin-bottom: 16px; }
+        .roadmap-status { min-width: 80px; font-size: 0.75rem; font-weight: 600; padding: 4px 8px; border-radius: 4px; text-align: center; height: fit-content; margin-top: 2px; }
+        .done { background: #14532d; color: #22c55e; }
+        .progress { background: #1e3a5f; color: #60a5fa; }
+        .planned { background: #1e293b; color: #64748b; }
+        .roadmap-content h3 { margin-top: 0; }
+        footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #1e293b; color: #475569; font-size: 0.85rem; }
+        .highlight { color: #22c55e; font-weight: 600; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h1>📊 Smart Node Monitor</h1>
+    <p class="subtitle">
+        <span class="badge badge-green">FastAPI</span>
+        <span class="badge badge-blue">Supabase</span>
+        <span class="badge badge-purple">Realtime</span>
+        <span class="badge badge-orange">IoT Simulation</span>
+        &nbsp;— Guida completa al progetto
+    </p>
+
+    <!-- PITCH -->
+    <h2>🎯 Il Progetto</h2>
+    <p>
+        <strong style="color:#f1f5f9">Smart Node Monitor</strong> è un sistema full-stack per il monitoraggio remoto
+        di sensori industriali in tempo reale. Simula uno scenario reale: un sensore di temperatura
+        installato su un macchinario (es. frigorifero industriale per medicinali) che invia dati
+        ogni 5 secondi a un backend cloud, il quale li salva su database e li espone tramite una
+        dashboard web interattiva.
+    </p>
+    <p>
+        L'operatore può monitorare la temperatura da qualsiasi dispositivo, ricevere alert visivi
+        quando supera soglie critiche e controllare attuatori remoti (LED, buzzer) direttamente
+        dalla dashboard.
+    </p>
+    <p>
+        Il progetto dimostra competenze <span class="highlight">end-to-end</span>: dalla simulazione
+        hardware al deploy cloud, passando per API REST, database real-time e UI moderna.
+    </p>
+
+    <!-- ARCHITETTURA -->
+    <h2>🏗️ Architettura</h2>
+    <div class="arch">
+        <pre><code>
+  ┌─────────────────┐     POST /api/sensor-data     ┌─────────────────┐
+  │   Simulatore    │ ───────────────────────────▶  │   Backend       │
+  │   (Python)      │                               │   (FastAPI)     │
+  │   node-001      │ ◀─────────────────────────── │   porta 8000    │
+  └─────────────────┘     GET /api/actuator/state   └────────┬────────┘
+                                                             │
+                                                    INSERT / SELECT
+                                                             │
+                                                    ┌────────▼────────┐
+                                                    │    Supabase     │
+                                                    │  (PostgreSQL)   │
+                                                    │  + Realtime     │
+                                                    └────────┬────────┘
+                                                             │
+                                                    Websocket Push
+                                                             │
+  ┌─────────────────┐                              ┌────────▼────────┐
+  │    Browser      │ ◀────────────────────────── │    Frontend     │
+  │  localhost:3000 │     aggiornamento auto       │  (HTML/CSS/JS)  │
+  └─────────────────┘                              └─────────────────┘
+        </code></pre>
+    </div>
+
+    <!-- STRUTTURA -->
+    <h2>📁 Struttura Progetto</h2>
+    <table>
+        <tr><th>Percorso</th><th>Contenuto</th></tr>
+        <tr><td>backend/app/main.py</td><td>App FastAPI, CORS, router</td></tr>
+        <tr><td>backend/app/database.py</td><td>Connessione Supabase via env vars</td></tr>
+        <tr><td>backend/app/crud.py</td><td>Operazioni lettura/scrittura Supabase</td></tr>
+        <tr><td>backend/app/schemas.py</td><td>Modelli Pydantic per validazione</td></tr>
+        <tr><td>backend/app/routes/sensor.py</td><td>Endpoint POST/GET sensor-data</td></tr>
+        <tr><td>backend/app/routes/actuator.py</td><td>Endpoint POST/GET attuatori</td></tr>
+        <tr><td>frontend/index.html</td><td>Dashboard HTML</td></tr>
+        <tr><td>frontend/css/style.css</td><td>Stili dark, responsive, animazioni</td></tr>
+        <tr><td>frontend/js/app.js</td><td>Logica dashboard, fetch, controlli</td></tr>
+        <tr><td>frontend/js/chart-config.js</td><td>Grafico Chart.js con colori dinamici</td></tr>
+        <tr><td>frontend/js/supabase-client.js</td><td>Client Supabase + Realtime WebSocket</td></tr>
+        <tr><td>simulator/device_simulator.py</td><td>Simulatore IoT: invia dati, riceve comandi</td></tr>
+        <tr><td>.env.local</td><td>Chiavi Supabase (escluso da git)</td></tr>
+        <tr><td>requirements.txt</td><td>Dipendenze Python</td></tr>
+    </table>
+
+    <!-- AVVIO -->
+    <h2>🚀 Come Avviare</h2>
+    <p>Aprire <strong>3 terminali PowerShell separati</strong> ed eseguire in ordine:</p>
+
+    <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+            <h3>Backend — FastAPI (porta 8000)</h3>
+            <pre><code>$env:PYTHONPATH = "C:\Users\aeria\Sviluppo\smart-node-monitor"
+cd C:\Users\aeria\Sviluppo\smart-node-monitor\backend
+..\venv\Scripts\uvicorn.exe app.main:app --reload --port 8000</code></pre>
+            <p>Attendi: <code>Application startup complete.</code></p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+            <h3>Frontend — Dashboard (porta 3000)</h3>
+            <pre><code>cd C:\Users\aeria\Sviluppo\smart-node-monitor\frontend
+python -m http.server 3000</code></pre>
+            <p>Poi apri nel browser: <code>http://localhost:3000</code></p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+            <h3>Simulatore IoT — invia dati ogni 5 secondi</h3>
+            <pre><code>cd C:\Users\aeria\Sviluppo\smart-node-monitor
+.\venv\Scripts\python.exe simulator\device_simulator.py</code></pre>
+            <p>Vedrai: <code>✓ Dati inviati: 28.3°C</code> ogni 5 secondi</p>
+        </div>
+    </div>
+
+    <!-- URL UTILI -->
+    <h2>🔗 URL Utili</h2>
+    <table>
+        <tr><th>URL</th><th>Descrizione</th></tr>
+        <tr><td>http://localhost:3000</td><td>Dashboard frontend</td></tr>
+        <tr><td>http://localhost:8000/docs</td><td>Documentazione API interattiva (Swagger)</td></tr>
+        <tr><td>http://localhost:8000/health</td><td>Health check backend</td></tr>
+        <tr><td>http://localhost:8000/api/sensor-data/latest</td><td>Ultima lettura sensore</td></tr>
+        <tr><td>http://localhost:8000/api/sensor-data/history</td><td>Storico ultime 24h</td></tr>
+    </table>
+
+    <!-- API -->
+    <h2>📡 Endpoint API</h2>
+    <table>
+        <tr><th>Metodo</th><th>Endpoint</th><th>Descrizione</th></tr>
+        <tr><td>POST</td><td>/api/sensor-data</td><td>Invia nuova lettura sensore</td></tr>
+        <tr><td>GET</td><td>/api/sensor-data/latest</td><td>Ultima lettura dispositivo</td></tr>
+        <tr><td>GET</td><td>/api/sensor-data/history</td><td>Storico (limit, hours parametri)</td></tr>
+        <tr><td>POST</td><td>/api/actuator/{type}</td><td>Comanda LED o Buzzer (state: true/false)</td></tr>
+        <tr><td>GET</td><td>/api/actuator/{type}/state</td><td>Stato attuale attuatore</td></tr>
+    </table>
+
+    <!-- ROADMAP -->
+    <h2>🗺️ Roadmap</h2>
+
+    <div class="roadmap-item">
+        <div class="roadmap-status done">✅ Fatto</div>
+        <div class="roadmap-content">
+            <h3>Backend FastAPI + Supabase</h3>
+            <p>API REST completa, validazione Pydantic, CORS, connessione Supabase PostgreSQL</p>
+        </div>
+    </div>
+
+    <div class="roadmap-item">
+        <div class="roadmap-status done">✅ Fatto</div>
+        <div class="roadmap-content">
+            <h3>Dashboard Frontend</h3>
+            <p>UI dark responsive, grafico Chart.js con colori dinamici, tabella dati, controlli LED/Buzzer</p>
+        </div>
+    </div>
+
+    <div class="roadmap-item">
+        <div class="roadmap-status done">✅ Fatto</div>
+        <div class="roadmap-content">
+            <h3>Simulatore IoT</h3>
+            <p>Genera temperature casuali (18-42°C), invia al backend ogni 5s, riceve comandi attuatori</p>
+        </div>
+    </div>
+
+    <div class="roadmap-item">
+        <div class="roadmap-status done">✅ Fatto</div>
+        <div class="roadmap-content">
+            <h3>Realtime Updates</h3>
+            <p>Supabase Realtime WebSocket aggiorna dashboard automaticamente a ogni nuova lettura</p>
+        </div>
+    </div>
+
+    <div class="roadmap-item">
+        <div class="roadmap-status progress">🔄 Prossimo</div>
+        <div class="roadmap-content">
+            <h3>Deploy Cloud</h3>
+            <p>Frontend su Vercel, backend su Railway o Render. GitHub Actions per CI/CD automatico</p>
+        </div>
+    </div>
+
+    <div class="roadmap-item">
+        <div class="roadmap-status planned">📋 Pianificato</div>
+        <div class="roadmap-content">
+            <h3>Autenticazione</h3>
+            <p>Login utente con Supabase Auth, dashboard protetta, multi-utente</p>
+        </div>
+    </div>
+
+    <div class="roadmap-item">
+        <div class="roadmap-status planned">📋 Pianificato</div>
+        <div class="roadmap-content">
+            <h3>Alert & Notifiche</h3>
+            <p>Email o push notification quando temperatura supera soglia critica configurabile</p>
+        </div>
+    </div>
+
+    <div class="roadmap-item">
+        <div class="roadmap-status planned">📋 Pianificato</div>
+        <div class="roadmap-content">
+            <h3>Multi-Dispositivo</h3>
+            <p>Supporto più nodi (node-001, node-002...), selezione dispositivo in dashboard</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>Sviluppato da <strong style="color:#f1f5f9">Carmine Dalise</strong> &mdash; Founder</p>
+        <p style="margin-top:4px">GitHub: <a href="https://github.com/iacreatorcar/smart-node-monitor" style="color:#2563eb">github.com/iacreatorcar/smart-node-monitor</a></p>
+    </footer>
+
+</div>
+</body>
+</html>
