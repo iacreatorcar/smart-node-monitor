@@ -6,6 +6,11 @@ Sistema full-stack per il monitoraggio remoto di sensori industriali in tempo re
 
 ---
 
+## 📸 Preview
+
+![Smart Node Monitor Dashboard](docs/smart-node-monitor.jpg)
+![TV Monitor View](docs/tvapp.jpg)
+
 ## 🎯 Il Progetto
 
 Smart Node Monitor simula uno scenario reale di monitoraggio industriale: un sensore di temperatura invia dati ogni 5 secondi a un backend cloud, che li salva su database e li espone tramite una dashboard web interattiva con aggiornamenti in tempo reale.
