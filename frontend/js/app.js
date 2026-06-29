@@ -1,7 +1,8 @@
 import { subscribeToSensorData } from './supabase-client.js'
 import { createTemperatureChart, updateChart } from './chart-config.js'
+import { API_BASE } from './config.js'
 
-const API = 'http://localhost:8000/api'
+const API = `${API_BASE}/api`
 
 class SmartNodeApp {
     constructor() {
